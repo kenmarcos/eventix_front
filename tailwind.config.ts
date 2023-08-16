@@ -25,6 +25,10 @@ const config: Config = {
       boxShadow: {
         asideMenu: "4px 0px 8px 0px rgba(0, 0, 0, 0.25)",
       },
+      backgroundImage: {
+        "description-gradient":
+          "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 67.08%)",
+      },
     },
   },
   plugins: [],
