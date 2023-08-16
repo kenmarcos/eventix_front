@@ -1,7 +1,10 @@
-import "./globals.css";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import Header from "app/components/header/Header";
+
+import Aside from "./components/aside/Aside";
+import Header from "./components/header/Header";
+
+import "./globals.css";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -19,10 +22,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt_BR">
-      <body className={poppins.className}>
+      <body className={`${poppins.className} bg-gray-extraLight`}>
         <Header />
-        <div className="container mx-auto">
-          <main>{children}</main>
+
+        <div className="flex 2xl:container 2xl:mx-auto">
+          <Aside />
+          <main className="flex-1">{children}</main>
         </div>
       </body>
     </html>

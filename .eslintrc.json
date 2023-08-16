@@ -5,8 +5,8 @@
     "import-helpers/order-imports": [
       "warn",
       {
-        "newlines-between": "always",
-        "group": [
+        "newlinesBetween": "always",
+        "groups": [
           ["/^react/", "/^next/", "/@next/"],
           "/^components/",
           "/module/",

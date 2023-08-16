@@ -10,15 +10,20 @@ const config: Config = {
     extend: {
       colors: {
         blue: {
+          extraLight: "#efeff6",
           light: "#d1e8ff",
           primary: "#1c2e63",
           dark: "##1C2143",
         },
         gray: {
+          extraLight: "#f4f4f4",
           light: "#f5f5f5",
           primary: "#e9e4e3",
           dark: "#a39f9e",
         },
+      },
+      boxShadow: {
+        asideMenu: "4px 0px 8px 0px rgba(0, 0, 0, 0.25)",
       },
     },
   },

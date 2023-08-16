@@ -1,6 +1,7 @@
-import { Bars3Icon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import Link from "next/link";
+
+import { Bars3Icon } from "@heroicons/react/20/solid";
 
 const Header = () => {
   return (
@@ -17,7 +18,7 @@ const Header = () => {
         </Link>
 
         <div className="flex gap-2 w-full justify-around lg:justify-end">
-          <Bars3Icon className="text-gray-primary w-7 sm:hidden" />
+          <Bars3Icon width={28} className="text-gray-primary sm:hidden" />
           <span className="text-gray-primary text-xl hidden sm:inline lg:hidden">
             Menu
           </span>
