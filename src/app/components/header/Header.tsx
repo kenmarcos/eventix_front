@@ -1,7 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import Input from "components/input/Input";
+
 import { Bars3Icon } from "@heroicons/react/20/solid";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 const Header = () => {
   return (
@@ -22,7 +25,13 @@ const Header = () => {
           <span className="text-gray-primary text-xl hidden sm:inline lg:hidden">
             Menu
           </span>
-          <input type="text" className="w-9/12" />
+
+          <Input
+            componentClassName="w-9/12"
+            className="text-xl"
+            placeholder="Insira o nome ou endereço do seu evento por aqui! :)"
+            rightIcon={<MagnifyingGlassIcon width={24} />}
+          />
         </div>
       </div>
     </header>
