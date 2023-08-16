@@ -14,7 +14,7 @@ const FeaturedEvents = () => {
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-y-4 gap-x-2">
-        <div className="relative rounded-3xl overflow-hidden">
+        <div className="relative rounded-3xl overflow-hidden shadow-md shadow-blue-dark">
           <div className="w-full h-[200px] bg-black bg-opacity-25 shadow"></div>
 
           <div className="absolute w-full py-4 px-10 bottom-0 space-y-4 bg-description-gradient text-white">
@@ -41,7 +41,7 @@ const FeaturedEvents = () => {
           </div>
         </div>
 
-        <div className="relative rounded-3xl overflow-hidden">
+        <div className="relative rounded-3xl overflow-hidden shadow-md shadow-blue-dark">
           <div className="w-full h-[150px] bg-black bg-opacity-25 shadow"></div>
 
           <div className="absolute w-full py-4 px-10 bottom-0 space-y-4 bg-description-gradient text-white">
@@ -68,7 +68,7 @@ const FeaturedEvents = () => {
           </div>
         </div>
 
-        <div className="relative rounded-3xl overflow-hidden">
+        <div className="relative rounded-3xl overflow-hidden shadow-md shadow-blue-dark">
           <div className="w-full h-[150px] bg-black bg-opacity-25 shadow"></div>
 
           <div className="absolute w-full py-4 px-10 bottom-0 space-y-4 bg-description-gradient text-white">

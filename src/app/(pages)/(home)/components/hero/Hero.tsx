@@ -6,9 +6,9 @@ import {
 
 const Hero = () => {
   return (
-    <section className="mt-6">
-      <div className="relative rounded-3xl overflow-hidden">
-        <div className="w-full h-[280px] bg-black bg-opacity-25 shadow"></div>
+    <section>
+      <div className="relative rounded-3xl overflow-hidden shadow-lg shadow-blue-dark">
+        <div className="w-full h-[280px] bg-black bg-opacity-25"></div>
 
         <div className="absolute w-full py-4 px-10 bottom-0 space-y-4 bg-description-gradient text-white">
           <h3 className="text-2xl sm:text-4xl font-bold truncate">
