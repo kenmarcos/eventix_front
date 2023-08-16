@@ -14,16 +14,19 @@ const EventCategories = () => {
 
       <div className="grid grid-cols-2 md:grid-cols-7">
         {eventCategories.map((category) => (
-          <Link key={category.name} href={category.slug}>
+          <Link key={category.name} href={category.slug} className="group">
             <div className="flex flex-col items-center">
               <Image
                 src={category.image}
                 alt={category.name}
                 width={144}
                 height={144}
+                className="group-hover:scale-105"
               />
 
-              <p className="font-medium text-blue-primary">{category.name}</p>
+              <p className="font-medium text-blue-primary group-hover:text-red-500">
+                {category.name}
+              </p>
             </div>
           </Link>
         ))}
