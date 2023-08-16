@@ -6,7 +6,7 @@ import {
 
 const Hero = () => {
   return (
-    <section className="pt-6">
+    <section className="mt-6">
       <div className="relative rounded-3xl overflow-hidden">
         <div className="w-full h-[280px] bg-black bg-opacity-25 shadow"></div>
 
