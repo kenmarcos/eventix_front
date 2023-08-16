@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 
-import Aside from "./components/aside/Aside";
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
+import Sidebar from "./components/sidebar/Sidebar";
 
 import "./globals.css";
 
@@ -28,7 +28,7 @@ export default function RootLayout({
           <Header />
 
           <div className="flex flex-1 2xl:container 2xl:mx-auto">
-            <Aside />
+            <Sidebar />
             <main className="flex-1">{children}</main>
           </div>
 

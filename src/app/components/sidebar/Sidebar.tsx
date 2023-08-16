@@ -26,7 +26,7 @@ const navigation = [
   },
 ];
 
-const Aside = () => {
+const Sidebar = () => {
   return (
     <aside className="hidden w-24 bg-blue-extraLight shadow-asideMenu px-4 py-6 lg:block">
       <p className="text-blue-primary text-center text-xl mb-10 font-semibold">
@@ -47,4 +47,4 @@ const Aside = () => {
   );
 };
 
-export default Aside;
+export default Sidebar;
