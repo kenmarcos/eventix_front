@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 
 import Aside from "./components/aside/Aside";
+import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
 
 import "./globals.css";
@@ -23,11 +24,15 @@ export default function RootLayout({
   return (
     <html lang="pt_BR">
       <body className={`${poppins.className} bg-gray-extraLight`}>
-        <Header />
+        <div className="h-screen flex flex-col">
+          <Header />
 
-        <div className="flex 2xl:container 2xl:mx-auto">
-          <Aside />
-          <main className="flex-1">{children}</main>
+          <div className="flex flex-1 2xl:container 2xl:mx-auto">
+            <Aside />
+            <main className="flex-1">{children}</main>
+          </div>
+
+          <Footer />
         </div>
       </body>
     </html>

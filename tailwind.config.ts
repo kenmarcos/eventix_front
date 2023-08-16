@@ -13,7 +13,7 @@ const config: Config = {
           extraLight: "#efeff6",
           light: "#d1e8ff",
           primary: "#1c2e63",
-          dark: "##1C2143",
+          dark: "#080b21",
         },
         gray: {
           extraLight: "#f4f4f4",
