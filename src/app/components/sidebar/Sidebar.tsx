@@ -10,12 +10,12 @@ import {
 } from "@heroicons/react/24/outline";
 
 const navigation = [
-  { icon: <HomeIcon width={24} />, name: "Home", href: "#" },
+  { icon: <HomeIcon width={24} />, name: "Home", href: "/" },
   { icon: <MapPinIcon width={24} />, name: "Mapa", href: "#" },
   {
     icon: <DocumentPlusIcon width={24} />,
     name: "Adicionar Evento",
-    href: "#",
+    href: "/events/add",
   },
   { icon: <FunnelIcon width={24} />, name: "Filtrar Eventos", href: "#" },
   { icon: <QuestionMarkCircleIcon width={24} />, name: "SAC", href: "#" },
