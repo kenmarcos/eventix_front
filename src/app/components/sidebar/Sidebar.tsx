@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import {
   DocumentPlusIcon,
@@ -11,13 +14,13 @@ import {
 
 const navigation = [
   { icon: <HomeIcon width={24} />, name: "Home", href: "/" },
-  { icon: <MapPinIcon width={24} />, name: "Mapa", href: "#" },
   {
     icon: <DocumentPlusIcon width={24} />,
     name: "Adicionar Evento",
     href: "/events/add",
   },
   { icon: <FunnelIcon width={24} />, name: "Filtrar Eventos", href: "#" },
+  { icon: <MapPinIcon width={24} />, name: "Mapa", href: "#" },
   { icon: <QuestionMarkCircleIcon width={24} />, name: "SAC", href: "#" },
   {
     icon: <ShieldExclamationIcon width={24} />,
@@ -27,6 +30,8 @@ const navigation = [
 ];
 
 const Sidebar = () => {
+  const pathname = usePathname();
+
   return (
     <aside className="hidden w-24 bg-blue-extraLight shadow-asideMenu px-4 py-6 lg:block">
       <div className="sticky top-10">
@@ -37,7 +42,11 @@ const Sidebar = () => {
         <nav className="flex flex-col gap-8">
           {navigation.map((nav) => (
             <Link key={nav.name} href={nav.href}>
-              <div className="flex flex-col items-center text-center text-blue-primary hover:drop-shadow-xl hover:brightness-50 hover:scale-105">
+              <div
+                className={`flex flex-col items-center text-center ${
+                  pathname === nav.href ? "text-blue-primary" : "text-gray-dark"
+                } hover:drop-shadow-xl hover:brightness-50 hover:scale-105`}
+              >
                 {nav.icon}
                 <p className="text-xs">{nav.name}</p>
               </div>
