@@ -1,4 +1,4 @@
-import { ComponentProps, LegacyRef, ReactNode } from "react";
+import { ComponentProps, LegacyRef, ReactNode, forwardRef } from "react";
 
 import { twMerge } from "tailwind-merge";
 
@@ -39,4 +39,4 @@ const Input = (
   );
 };
 
-export default Input;
+export default forwardRef(Input);
