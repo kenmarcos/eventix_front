@@ -29,20 +29,22 @@ const navigation = [
 const Sidebar = () => {
   return (
     <aside className="hidden w-24 bg-blue-extraLight shadow-asideMenu px-4 py-6 lg:block">
-      <p className="text-blue-primary text-center text-xl mb-10 font-semibold">
-        Menu
-      </p>
+      <div className="sticky top-10">
+        <p className="text-blue-primary text-center text-xl mb-10 font-semibold">
+          Menu
+        </p>
 
-      <nav className="flex flex-col gap-8">
-        {navigation.map((nav) => (
-          <Link key={nav.name} href={nav.href}>
-            <div className="flex flex-col items-center text-center text-blue-primary hover:drop-shadow-xl hover:brightness-50 hover:scale-105">
-              {nav.icon}
-              <p className="text-xs">{nav.name}</p>
-            </div>
-          </Link>
-        ))}
-      </nav>
+        <nav className="flex flex-col gap-8">
+          {navigation.map((nav) => (
+            <Link key={nav.name} href={nav.href}>
+              <div className="flex flex-col items-center text-center text-blue-primary hover:drop-shadow-xl hover:brightness-50 hover:scale-105">
+                {nav.icon}
+                <p className="text-xs">{nav.name}</p>
+              </div>
+            </Link>
+          ))}
+        </nav>
+      </div>
     </aside>
   );
 };
