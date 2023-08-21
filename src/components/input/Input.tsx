@@ -26,7 +26,7 @@ const Input = (
       <div
         className={`border ${
           errorMessage ? "border-red-600" : "border-blue-light"
-        } rounded-lg overflow-hidden flex bg-white px-6 py-1`}
+        } rounded-lg overflow-hidden flex bg-white px-4 py-1`}
       >
         {!!leftIcon && leftIcon}
 

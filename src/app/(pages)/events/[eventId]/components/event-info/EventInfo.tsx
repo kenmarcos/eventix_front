@@ -1,6 +1,6 @@
 const EventInfo = () => {
   return (
-    <section className="font-light text-blue-primary space-y-4">
+    <section className="font-light text-blue-primary space-y-4 lg:col-span-2 lg:pr-24">
       <section>
         <h4 className="text-xl font-medium">Descrição do Evento</h4>
 
