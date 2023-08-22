@@ -1,4 +1,5 @@
 import Button from "components/button/Button";
+import CurrencyInput from "components/currency-input/CurrencyInput";
 import Input from "components/input/Input";
 
 const Tickets = () => {
@@ -37,7 +38,7 @@ const Tickets = () => {
 
               <div className="col-span-1 space-y-1">
                 <label className="text-blue-dark font-medium">Subtotal</label>
-                <Input placeholder="R$0,00" />
+                <CurrencyInput placeholder="R$0,00" />
               </div>
             </div>
 

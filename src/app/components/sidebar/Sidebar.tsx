@@ -19,7 +19,11 @@ const navigation = [
     name: "Adicionar Evento",
     href: "/events/add",
   },
-  { icon: <FunnelIcon width={24} />, name: "Filtrar Eventos", href: "#" },
+  {
+    icon: <FunnelIcon width={24} />,
+    name: "Filtrar Eventos",
+    href: "/events/search",
+  },
   { icon: <MapPinIcon width={24} />, name: "Mapa", href: "#" },
   { icon: <QuestionMarkCircleIcon width={24} />, name: "SAC", href: "#" },
   {

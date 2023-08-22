@@ -1,3 +1,4 @@
+import CurrencyInput from "components/currency-input/CurrencyInput";
 import FileInput from "components/file-input/FileInput";
 import Input from "components/input/Input";
 import Textarea from "components/textarea/Textarea";
@@ -65,7 +66,7 @@ const AddEventForm = () => {
             <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-x-6">
               <div className="space-y-1">
                 <label className="text-blue-primary font-medium">Preço</label>
-                <Input />
+                <CurrencyInput />
               </div>
 
               <div className="space-y-1">
