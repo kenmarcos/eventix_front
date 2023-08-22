@@ -26,7 +26,7 @@ const AddEventForm = () => {
               <Input />
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-6">
+            <div className="grid grid-cols-1 space-y-4 lg:grid-cols-2 lg:space-y-0 lg:gap-x-6">
               <div className="space-y-1">
                 <label className="text-blue-primary font-medium">Data</label>
                 <Input />
