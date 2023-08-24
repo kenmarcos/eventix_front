@@ -24,7 +24,7 @@ const navigation = [
     name: "Filtrar Eventos",
     href: "/events/search",
   },
-  { icon: <MapPinIcon width={24} />, name: "Mapa", href: "#" },
+  { icon: <MapPinIcon width={24} />, name: "Mapa", href: "/map" },
   { icon: <QuestionMarkCircleIcon width={24} />, name: "SAC", href: "#" },
   {
     icon: <ShieldExclamationIcon width={24} />,
