@@ -19,14 +19,17 @@ const Input = (
   }: InputProps,
   ref: LegacyRef<HTMLInputElement> | undefined
 ) => {
-  const inputClassName = twMerge("flex-1 focus:outline-none", rest.className);
+  const inputClassName = twMerge(
+    "flex-1 focus:outline-none text-sm placeholder:text-sm",
+    rest.className
+  );
 
   return (
     <div className={componentClassName}>
       <div
         className={`border ${
           errorMessage ? "border-red-600" : "border-blue-light"
-        } rounded-lg overflow-hidden flex bg-white px-4 py-1`}
+        } rounded-lg overflow-hidden flex bg-white px-4 py-2`}
       >
         {!!leftIcon && leftIcon}
 

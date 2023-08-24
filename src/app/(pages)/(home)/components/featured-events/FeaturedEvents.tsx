@@ -53,7 +53,7 @@ const FeaturedEvents = ({ events }: FeaturedEventsProps) => {
 
                   <div className="flex items-center gap-1 text-xs sm:text-base">
                     <MapPinIcon className="w-3 sm:w-6" />
-                    <p>{event.city}</p>
+                    <p>{event.formattedAddress.split("-")[1]}</p>
                   </div>
                 </div>
               </EventCard.Info>

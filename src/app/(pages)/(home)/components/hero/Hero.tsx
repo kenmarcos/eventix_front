@@ -18,8 +18,6 @@ const Hero = ({ event }: HeroProps) => {
   const image = `http://localhost:3333/uploads/${event.banner}`;
   const date = new Date(event.date);
 
-  console.log("🚀 ~ file: Hero.tsx:32 ~ Hero ~ image:", image);
-
   return (
     <section>
       <Link href={`/events/${event.id}`}>
@@ -46,7 +44,7 @@ const Hero = ({ event }: HeroProps) => {
 
               <div className="flex items-center gap-1 text-xs sm:text-base">
                 <MapPinIcon className="w-3 sm:w-6" />
-                <p>{event.city}</p>
+                <p>{event.formattedAddress}</p>
               </div>
             </div>
           </EventCard.Info>

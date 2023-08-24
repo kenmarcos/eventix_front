@@ -17,9 +17,9 @@ const CurrencyInput = ({
   ...rest
 }: CurrencyInputProps) => {
   const currencyInputClassName = twMerge(
-    `w-full border ${
+    `w-full text-sm border ${
       errorMessage ? "border-red-600" : "border-blue-light"
-    } rounded-lg overflow-hidden flex bg-white px-4 py-1 focus:outline-none`,
+    } rounded-lg overflow-hidden flex bg-white px-4 py-2 focus:outline-none`,
     rest.className
   );
 

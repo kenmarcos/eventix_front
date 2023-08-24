@@ -1,13 +1,22 @@
 "use client";
 
 import Image from "next/image";
-import { ChangeEvent, ComponentProps, useState } from "react";
+import {
+  ChangeEvent,
+  ComponentProps,
+  LegacyRef,
+  forwardRef,
+  useState,
+} from "react";
 
 import { twMerge } from "tailwind-merge";
 
-interface FileInputProps extends ComponentProps<"div"> {}
+interface FileInputProps extends ComponentProps<"input"> {}
 
-const FileInput = ({ ...rest }: FileInputProps) => {
+const FileInput = (
+  { ...rest }: FileInputProps,
+  ref: LegacyRef<HTMLInputElement> | undefined
+) => {
   const [preview, setPreview] = useState<File | null>(null);
 
   const fileInputClassName = twMerge(
@@ -22,7 +31,7 @@ const FileInput = ({ ...rest }: FileInputProps) => {
   };
 
   return (
-    <div {...rest} className={fileInputClassName}>
+    <div className={fileInputClassName}>
       <Image
         src={preview ? URL.createObjectURL(preview) : "/file-input-lg.png"}
         alt="Preview image"
@@ -32,6 +41,8 @@ const FileInput = ({ ...rest }: FileInputProps) => {
       />
 
       <input
+        {...rest}
+        ref={ref}
         type="file"
         accept=".png, .jpg, .jpeg"
         className="absolute w-full h-full cursor-pointer opacity-0"
@@ -41,4 +52,4 @@ const FileInput = ({ ...rest }: FileInputProps) => {
   );
 };
 
-export default FileInput;
+export default forwardRef(FileInput);
