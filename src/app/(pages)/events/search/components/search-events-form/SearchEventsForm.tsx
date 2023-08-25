@@ -1,5 +1,6 @@
 "use client";
 
+import AutocompleteInput from "components/autocomplete-input/AutocompleteInput";
 import Button from "components/button/Button";
 import Input from "components/input/Input";
 import SliderInput from "components/slider-input/SliderInput";
@@ -25,7 +26,7 @@ const SearchEventsForm = () => {
 
           <div className="space-y-1">
             <label className="text-blue-primary font-medium">Endereço</label>
-            <Input />
+            <AutocompleteInput />
           </div>
 
           <div className="grid grid-cols-1 space-y-4 lg:grid-cols-2 lg:space-y-0 lg:gap-x-6">
