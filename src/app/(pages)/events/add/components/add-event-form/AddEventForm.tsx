@@ -2,6 +2,7 @@
 
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 
+import AddressAutocompleteInput from "components/address-autocomplete-input/AddressAutocompleteInput";
 import Button from "components/button/Button";
 import CurrencyInput from "components/currency-input/CurrencyInput";
 import FileInput from "components/file-input/FileInput";
@@ -10,6 +11,7 @@ import Textarea from "components/textarea/Textarea";
 
 import SectionHeader from "app/components/section-header/SectionHeader";
 import eventCategories from "utils/eventCategories";
+import fetchWrapper from "utils/fetchWrapper";
 
 interface AddEventFormProps {
   title: string;
@@ -31,6 +33,7 @@ const AddEventForm = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     control,
     formState: { errors },
   } = useForm<AddEventFormProps>({
@@ -44,8 +47,43 @@ const AddEventForm = () => {
     control,
   });
 
-  const handleSubmitForm = (data: AddEventFormProps) => {
+  const handleSubmitForm = async (data: AddEventFormProps) => {
     console.log(data);
+
+    const formattedData = new Date(`${data.date}T${data.time}`);
+
+    const formData = new FormData();
+
+    formData.append("title", data.title);
+    formData.append("coupom", data.coupom);
+    formData.append("date", formattedData.toISOString());
+    formData.append("location[latitude]", data.latitude);
+    formData.append("location[longitude]", data.longitude);
+    formData.append("price[sector]", data.sector);
+    formData.append("price[amount]", data.price);
+    formData.append("description", data.description);
+    formData.append("categories", data.categories);
+    formData.append("banner", data.banner[0]);
+    data.flyers.forEach((flyer: any) => {
+      formData.append("flyers", flyer[0]);
+    });
+
+    try {
+      const response = await fetchWrapper(`/events`, {
+        method: "POST",
+        body: formData,
+      });
+      // toast.success('Evento criado com sucesso!');
+      console.log("🚀 ~ file: page.tsx:49 ~ onSubmit ~ response:", response);
+    } catch (error) {
+      // toast.error('Erro ao criar evento');
+      console.log("🚀 ~ file: page.tsx:48 ~ onSubmit ~ error:", error);
+    }
+  };
+
+  const onSelect = (address: any) => {
+    setValue("latitude", address.lat);
+    setValue("longitude", address.lng);
   };
 
   return (
@@ -60,28 +98,52 @@ const AddEventForm = () => {
 
             <div className="mt-10 space-y-4">
               <div className="space-y-1">
-                <label className="text-blue-primary font-medium">Título</label>
-                <Input {...register("title")} />
+                <label
+                  htmlFor="title"
+                  className="text-blue-primary font-medium"
+                >
+                  Título
+                </label>
+                <Input
+                  id="title"
+                  {...register("title")}
+                  placeholder="Insira o nome do evento"
+                />
               </div>
 
               <div className="space-y-1">
-                <label className="text-blue-primary font-medium">
+                <label
+                  htmlFor="address"
+                  className="text-blue-primary font-medium"
+                >
                   Endereço
                 </label>
-                <Input />
+                <AddressAutocompleteInput
+                  id="address"
+                  onSelect={onSelect}
+                  placeholder="Insira o endereço"
+                />
               </div>
 
               <div className="grid grid-cols-1 space-y-4 lg:grid-cols-2 lg:space-y-0 lg:gap-x-6">
                 <div className="space-y-1">
-                  <label className="text-blue-primary font-medium">Data</label>
-                  <Input {...register("date")} type="date" />
+                  <label
+                    htmlFor="date"
+                    className="text-blue-primary font-medium"
+                  >
+                    Data
+                  </label>
+                  <Input id="date" {...register("date")} type="date" />
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-blue-primary font-medium">
+                  <label
+                    htmlFor="time"
+                    className="text-blue-primary font-medium"
+                  >
                     Horário
                   </label>
-                  <Input {...register("time")} type="time" />
+                  <Input id="time" {...register("time")} type="time" />
                 </div>
               </div>
 
@@ -93,11 +155,15 @@ const AddEventForm = () => {
                   {eventCategories.map((category) => (
                     <div key={category.name} className="flex gap-1">
                       <input
+                        id={category.name}
                         type="checkbox"
                         value={category.name}
                         {...register("categories")}
                       />
-                      <label className="text-xs text-blue-primary">
+                      <label
+                        htmlFor={category.name}
+                        className="text-xs text-blue-primary"
+                      >
                         {category.name}
                       </label>
                     </div>
@@ -115,14 +181,20 @@ const AddEventForm = () => {
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-x-6">
                 <div className="space-y-1">
-                  <label className="text-blue-primary font-medium">Preço</label>
+                  <label
+                    htmlFor="price"
+                    className="text-blue-primary font-medium"
+                  >
+                    Preço
+                  </label>
                   <Controller
                     name="price"
                     control={control}
                     render={({ field }) => (
                       <CurrencyInput
+                        id="price"
                         onValueChange={field.onChange}
-                        placeholder="Orçamento"
+                        placeholder="R$ 0,00"
                         value={field.value}
                       />
                     )}
@@ -130,24 +202,47 @@ const AddEventForm = () => {
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-blue-primary font-medium">Setor</label>
-                  <Input {...register("sector")} />
+                  <label
+                    htmlFor="sector"
+                    className="text-blue-primary font-medium"
+                  >
+                    Setor
+                  </label>
+                  <Input
+                    id="sector"
+                    {...register("sector")}
+                    placeholder="Insira o setor"
+                  />
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-blue-primary font-medium">Cupom</label>
-                  <Input {...register("coupom")} />
+                  <label
+                    htmlFor="coupom"
+                    className="text-blue-primary font-medium"
+                  >
+                    Cupom
+                  </label>
+                  <Input
+                    id="coupom"
+                    {...register("coupom")}
+                    placeholder="Insira o código"
+                  />
                 </div>
               </div>
 
               <div className="space-y-1">
-                <label className="text-blue-primary font-medium">
+                <label
+                  htmlFor="description"
+                  className="text-blue-primary font-medium"
+                >
                   Descrição
                 </label>
                 <Textarea
+                  id="description"
                   className="w-full"
                   rows={6}
                   {...register("description")}
+                  placeholder="Dê uma descrição que vai embalar o seu público!"
                 />
               </div>
             </div>
@@ -189,13 +284,10 @@ const AddEventForm = () => {
                   {fields.map((field, index) => (
                     <FileInput
                       key={field.id}
-                      className="w-full"
+                      className="w-full max-w-xl"
                       {...register(`flyers.${index}`)}
                     />
-                    // <input type="file" key={field.id} />
                   ))}
-                  {/* <FileInput className="w-full" />
-                  <FileInput className="w-full" /> */}
                 </div>
               </div>
 

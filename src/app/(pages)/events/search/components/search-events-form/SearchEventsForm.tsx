@@ -1,6 +1,6 @@
 "use client";
 
-import AutocompleteInput from "components/autocomplete-input/AutocompleteInput";
+import AddressAutocompleteInput from "components/address-autocomplete-input/AddressAutocompleteInput";
 import Button from "components/button/Button";
 import Input from "components/input/Input";
 import SliderInput from "components/slider-input/SliderInput";
@@ -10,6 +10,8 @@ import eventCategories from "utils/eventCategories";
 import formatPrice from "utils/formatPrice";
 
 const SearchEventsForm = () => {
+  const onSelect = () => {};
+
   return (
     <section className="lg:border-r-4 lg:border-blue-light lg:pr-10">
       <SectionHeader
@@ -26,7 +28,7 @@ const SearchEventsForm = () => {
 
           <div className="space-y-1">
             <label className="text-blue-primary font-medium">Endereço</label>
-            <AutocompleteInput />
+            <AddressAutocompleteInput onSelect={onSelect} />
           </div>
 
           <div className="grid grid-cols-1 space-y-4 lg:grid-cols-2 lg:space-y-0 lg:gap-x-6">
