@@ -9,6 +9,7 @@ import FileInput from "components/file-input/FileInput";
 import Input from "components/input/Input";
 import Textarea from "components/textarea/Textarea";
 
+import { TrashIcon } from "@heroicons/react/24/outline";
 import SectionHeader from "app/components/section-header/SectionHeader";
 import eventCategories from "utils/eventCategories";
 import fetchWrapper from "utils/fetchWrapper";
@@ -20,8 +21,7 @@ interface AddEventFormProps {
   latitude: string;
   longitude: string;
   time: string;
-  price: string;
-  sector: string;
+  price: { sector: string; amount: string }[];
   description: string;
   categories: string;
   // map: File;
@@ -39,11 +39,21 @@ const AddEventForm = () => {
   } = useForm<AddEventFormProps>({
     defaultValues: {
       flyers: Array(3).fill({} as FileList),
+      price: [{ sector: "", amount: "" }],
     },
   });
 
-  const { fields, append, remove } = useFieldArray({
+  const { fields: flyerFields } = useFieldArray({
     name: "flyers",
+    control,
+  });
+
+  const {
+    fields: priceFields,
+    append: priceAppend,
+    remove: priceRemove,
+  } = useFieldArray({
+    name: "price",
     control,
   });
 
@@ -59,11 +69,12 @@ const AddEventForm = () => {
     formData.append("date", formattedData.toISOString());
     formData.append("location[latitude]", data.latitude);
     formData.append("location[longitude]", data.longitude);
-    formData.append("price[sector]", data.sector);
-    formData.append("price[amount]", data.price);
     formData.append("description", data.description);
     formData.append("categories", data.categories);
     formData.append("banner", data.banner[0]);
+    data.price.forEach((price: any) => {
+      formData.append("price[]", JSON.stringify(price));
+    });
     data.flyers.forEach((flyer: any) => {
       formData.append("flyers", flyer[0]);
     });
@@ -174,60 +185,83 @@ const AddEventForm = () => {
               <div>
                 <p className="text-blue-primary font-medium">Valor</p>
                 <p className="text-gray-dark text-xs">
-                  Caso seu evento seja gratuito, o campo deverá ficar vazio. Se
-                  houver cupom promocional, basta colocar o código no campo
-                  “cupom”.
+                  Caso seu evento seja gratuito, o campo deverá ficar vazio.
+                  Caso haja mais de um setor, basta adicionar. Se houver cupom
+                  promocional, basta colocar o código no campo “cupom”.
                 </p>
               </div>
-              <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-x-6">
-                <div className="space-y-1">
-                  <label
-                    htmlFor="price"
-                    className="text-blue-primary font-medium"
-                  >
-                    Preço
-                  </label>
-                  <Controller
-                    name="price"
-                    control={control}
-                    render={({ field }) => (
-                      <CurrencyInput
-                        id="price"
-                        onValueChange={field.onChange}
-                        placeholder="R$ 0,00"
-                        value={field.value}
+
+              {priceFields.map((field, index) => (
+                <div key={field.id} className="grid grid-cols-7 gap-2">
+                  <div className="col-span-6 grid grid-cols-2 gap-6">
+                    <div className="space-y-1">
+                      <label
+                        htmlFor="sector"
+                        className="text-blue-primary font-medium"
+                      >
+                        Setor
+                      </label>
+                      <Input
+                        id="sector"
+                        {...register(`price.${index}.sector`)}
+                        placeholder="Insira o setor"
                       />
-                    )}
-                  />
-                </div>
+                    </div>
 
-                <div className="space-y-1">
-                  <label
-                    htmlFor="sector"
-                    className="text-blue-primary font-medium"
-                  >
-                    Setor
-                  </label>
-                  <Input
-                    id="sector"
-                    {...register("sector")}
-                    placeholder="Insira o setor"
-                  />
-                </div>
+                    <div className="space-y-1">
+                      <label
+                        htmlFor="price"
+                        className="text-blue-primary font-medium"
+                      >
+                        Preço
+                      </label>
+                      <Controller
+                        name={`price.${index}.amount`}
+                        control={control}
+                        render={({ field }) => (
+                          <CurrencyInput
+                            id="price"
+                            allowDecimals={false}
+                            onValueChange={field.onChange}
+                            placeholder="R$ 0,00"
+                            value={field.value}
+                          />
+                        )}
+                      />
+                    </div>
+                  </div>
 
-                <div className="space-y-1">
-                  <label
-                    htmlFor="coupom"
-                    className="text-blue-primary font-medium"
+                  <Button
+                    type="button"
+                    variant="danger"
+                    className="h-[38px] self-end rounded-lg flex justify-center"
+                    onClick={() => priceRemove(index)}
                   >
-                    Cupom
-                  </label>
-                  <Input
-                    id="coupom"
-                    {...register("coupom")}
-                    placeholder="Insira o código"
-                  />
+                    <TrashIcon width={12} />
+                  </Button>
                 </div>
+              ))}
+              <Button
+                type="button"
+                variant="outline-primary"
+                className="h-[38px] w-full self-end rounded-lg"
+                onClick={() => priceAppend({ sector: "", amount: "" })}
+              >
+                Adicionar Setor
+              </Button>
+
+              <div className="space-y-1">
+                <label
+                  htmlFor="coupom"
+                  className="text-blue-primary font-medium"
+                >
+                  Cupom
+                </label>
+                <Input
+                  id="coupom"
+                  {...register("coupom")}
+                  placeholder="Insira o código"
+                />
               </div>
 
               <div className="space-y-1">
@@ -281,7 +315,7 @@ const AddEventForm = () => {
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                  {fields.map((field, index) => (
+                  {flyerFields.map((field, index) => (
                     <FileInput
                       key={field.id}
                       className="w-full max-w-xl"

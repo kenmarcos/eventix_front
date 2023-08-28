@@ -24,7 +24,7 @@ const FeaturedEvents = ({ events }: FeaturedEventsProps) => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-y-4 gap-x-2">
         {events.map((event) => (
-          <Link key={event.id} href={`/events/${event.id}`}>
+          <Link key={event._id} href={`/events/${event._id}`}>
             <EventCard.Root className="group">
               <EventCard.Image
                 src={`http://localhost:3333/uploads/${event.banner}`}

@@ -20,7 +20,7 @@ const Hero = ({ event }: HeroProps) => {
 
   return (
     <section>
-      <Link href={`/events/${event.id}`}>
+      <Link href={`/events/${event._id}`}>
         <EventCard.Root className="h-72 group">
           <EventCard.Image src={image} alt={event.title} />
 
