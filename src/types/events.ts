@@ -7,7 +7,7 @@ export interface Event {
   flyers: string[];
   coupons: string[];
   participants: string[];
-  price: Array<{ sector: string; amount: string }>;
+  price: Array<string>;
   city: string;
   categories: string[];
   formattedAddress: string;

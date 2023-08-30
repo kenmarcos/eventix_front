@@ -1,6 +1,6 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 
 import Button from "components/button/Button";
 import CurrencyInput from "components/currency-input/CurrencyInput";
@@ -16,6 +16,7 @@ interface TicktesFormProps {
   name: string;
   email: string;
   quantity: number;
+  tickets: { sector: string; amount: string; quantity: number }[];
 }
 
 const Tickets = ({ event }: TicketsProps) => {
@@ -24,25 +25,43 @@ const Tickets = ({ event }: TicketsProps) => {
     handleSubmit,
     watch,
     setValue,
+    control,
     formState: { errors },
   } = useForm<TicktesFormProps>({
     defaultValues: {
-      quantity: 0,
+      tickets: event.price.map((price) => {
+        return {
+          sector: JSON.parse(price).sector,
+          amount: JSON.parse(price).amount,
+          quantity: 0,
+        };
+      }),
     },
+  });
+
+  const { fields, append, remove } = useFieldArray({
+    name: "tickets",
+    control,
   });
 
   const handleOnSubmit = (data: any) => {
     console.log(data);
   };
 
-  const incrementTicket = () => {
-    if (Number(watch("quantity")) >= 99) return;
-    setValue("quantity", Number(watch("quantity")) + 1);
+  const incrementTicket = (index: number) => {
+    if (Number(watch(`tickets.${index}.quantity`)) >= 99) return;
+    setValue(
+      `tickets.${index}.quantity`,
+      Number(watch(`tickets.${index}.quantity`)) + 1
+    );
   };
 
-  const decrementTicket = () => {
-    if (Number(watch("quantity")) <= 0) return;
-    setValue("quantity", Number(watch("quantity")) - 1);
+  const decrementTicket = (index: number) => {
+    if (Number(watch(`tickets.${index}.quantity`)) <= 0) return;
+    setValue(
+      `tickets.${index}.quantity`,
+      Number(watch(`tickets.${index}.quantity`)) - 1
+    );
   };
 
   return (
@@ -54,15 +73,17 @@ const Tickets = ({ event }: TicketsProps) => {
 
         <form className="p-6 space-y-6" onSubmit={handleSubmit(handleOnSubmit)}>
           <div className="space-y-4">
-            {event.price.map((item) => (
+            {fields.map((field, index) => (
               <div
-                key={item.sector}
+                key={field.id}
                 className="flex justify-between items-center gap-2"
               >
                 <div>
-                  <label className="text-blue-dark font-medium">Pista</label>
+                  <label className="text-blue-dark font-medium">
+                    {field.sector}
+                  </label>
                   <p className="text-xs text-blue-primary text-blue primary">
-                    {formatPrice(Number(item.amount))}
+                    {formatPrice(Number(field.amount))}
                   </p>
                 </div>
 
@@ -70,19 +91,19 @@ const Tickets = ({ event }: TicketsProps) => {
                   <Button
                     type="button"
                     className="p-0 rounded w-8 h-8"
-                    onClick={decrementTicket}
+                    onClick={() => decrementTicket(index)}
                   >
                     -
                   </Button>
                   <input
-                    {...register("quantity")}
+                    {...register(`tickets.${index}.quantity`)}
                     type="number"
                     className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none w-8 h-8 text-center focus:outline-none border border-blue-light rounded"
                   />
                   <Button
                     type="button"
                     className="p-0 rounded w-8 h-8"
-                    onClick={incrementTicket}
+                    onClick={() => incrementTicket(index)}
                   >
                     +
                   </Button>

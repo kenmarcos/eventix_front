@@ -35,6 +35,7 @@ const SliderInput = ({
         max={max}
         defaultValue={defaultValue}
         onValueChange={handleOnValueChange}
+        value={[currentValue]}
       >
         <Slider.Track className="bg-slate-200 relative grow rounded-full h-3">
           <Slider.Range className="absolute bg-teal-400 rounded-full h-full" />

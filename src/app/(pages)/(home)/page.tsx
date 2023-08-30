@@ -8,7 +8,7 @@ export default async function Home() {
   const events = await fetchWrapper("/events/featuredEvents", {
     method: "GET",
     next: {
-      revalidate: 60 * 60 * 24, // revalidar em 1 dia
+      revalidate: 60,
     },
   });
 

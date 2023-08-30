@@ -35,9 +35,10 @@ const EventInfo = ({ event }: EventInfoProps) => {
         <h4 className="text-xl text-blue-primary font-medium">Setores</h4>
 
         <ul>
-          {event.price.map((item) => (
-            <li key={item.sector}>
-              - {item.sector} ({formatPrice(Number(item.amount))})
+          {event.price.map((price) => (
+            <li key={JSON.parse(price).sector}>
+              - {JSON.parse(price).sector} (
+              {formatPrice(Number(JSON.parse(price).amount))})
             </li>
           ))}
         </ul>

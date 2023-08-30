@@ -6,6 +6,7 @@ import Header from "./components/header/Header";
 import Sidebar from "./components/sidebar/Sidebar";
 
 import "./globals.css";
+import ContextsProvider from "context";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -25,14 +26,16 @@ export default function RootLayout({
     <html lang="pt_BR">
       <body className={`${poppins.className} bg-gray-extraLight`}>
         <div className="min-h-screen flex flex-col">
-          <Header />
+          <ContextsProvider>
+            <Header />
 
-          <div className="flex flex-1 2xl:container 2xl:mx-auto">
-            <Sidebar />
-            <main className="flex-1">{children}</main>
-          </div>
+            <div className="flex flex-1 2xl:container 2xl:mx-auto">
+              <Sidebar />
+              <main className="flex-1">{children}</main>
+            </div>
 
-          <Footer />
+            <Footer />
+          </ContextsProvider>
         </div>
       </body>
     </html>
