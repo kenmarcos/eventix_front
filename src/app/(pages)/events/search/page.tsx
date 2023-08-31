@@ -5,7 +5,7 @@ import SearchResult from "./components/search-result/SearchResult";
 
 const SearchEvents = () => {
   return (
-    <div className="px-2 lg:px-10 mt-12 mb-24 grid grid-cols-1 lg:grid-cols-2">
+    <div className="px-2 pt-12 pb-12 lg:px-10 grid grid-cols-1 lg:grid-cols-2 lg:h-full">
       <SearchEventsForm />
 
       <hr className="border-t-4 border-blue-light my-10 lg:hidden" />

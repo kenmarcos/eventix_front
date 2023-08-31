@@ -28,6 +28,7 @@ const SearchEventsForm = () => {
   const {
     register,
     handleSubmit,
+    reset,
     setValue,
     control,
     formState: { errors },
@@ -44,25 +45,23 @@ const SearchEventsForm = () => {
   // };
 
   const handleOnSubmit = async (data: SearchEventsFormProps) => {
-    console.log(data);
+    try {
+      const events = await fetchWrapper(
+        `/events/filter?` +
+          new URLSearchParams({
+            title: data.title,
+            categories: data.categories,
+            date: data.date,
+          }),
+        {
+          method: "GET",
+        }
+      );
 
-    const events = await fetchWrapper(
-      `/events/filter?` +
-        new URLSearchParams({
-          title: data.title,
-          categories: data.categories,
-          date: data.date,
-        }),
-      {
-        method: "GET",
-      }
-    );
-
-    setFilteredEvents(events);
-    console.log(
-      "🚀 ~ file: SearchEventsForm.tsx:68 ~ handleOnSubmit ~ events:",
-      events
-    );
+      setFilteredEvents(events);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -169,6 +168,7 @@ const SearchEventsForm = () => {
             type="button"
             variant="outline-primary"
             className="rounded-full w-full lg:w-40"
+            onClick={() => reset()}
           >
             Limpar
           </Button>
